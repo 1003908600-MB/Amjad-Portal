@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة المعلمين الإرشادية | مدرسة الأمجاد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* === Palette: Navy & Gold Professional === */
+            --navy-900: #0a1628;
+            --navy-800: #0f2044;
+            --navy-700: #162a5a;
+            --navy-600: #1e3a72;
+            --gold-400: #c9a84c;
+            --gold-300: #d4b76a;
+            --gold-200: #e8d49a;
+            --gold-100: #f7f0dc;
+
+            --bg-body: #f4f6fa;
+            --bg-card: #ffffff;
+            --bg-card-solid: #ffffff;
+            --bg-card-hover: #f9fbff;
+            --text-main: #0f2044;
+            --text-muted: #5a6a80;
+            --text-light: #8a9ab0;
+            --primary: #1e3a72;
+            --primary-dark: #0f2044;
+            --accent: #c9a84c;
+
+            --primary-gradient: linear-gradient(135deg, #1e3a72 0%, #2d55a8 100%);
+            --gold-gradient: linear-gradient(135deg, #c9a84c 0%, #e8d49a 100%);
+            --purple-gradient: linear-gradient(135deg, #4a2080 0%, #7c3fc0 100%);
+            --green-gradient: linear-gradient(135deg, #0a7a5e 0%, #12b080 100%);
+            --amber-gradient: linear-gradient(135deg, #b87c10 0%, #d4a82a 100%);
+            --rose-gradient: linear-gradient(135deg, #9c1a30 0%, #c0394f 100%);
+            --teal-gradient: linear-gradient(135deg, #07635a 0%, #0d9488 100%);
+            --whatsapp-gradient: linear-gradient(135deg, #128C7E 0%, #25D366 100%);
+
+            --shadow-soft: 0 2px 16px rgba(15,32,68,0.08);
+            --shadow-card: 0 4px 24px rgba(15,32,68,0.10);
+            --shadow-hover: 0 10px 36px rgba(15,32,68,0.16);
+            --shadow-gold: 0 4px 20px rgba(201,168,76,0.25);
+            --border-color: rgba(15,32,68,0.08);
+            --border-accent: rgba(201,168,76,0.3);
+            --row-hover: #f0f4fb;
+            --transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            --search-bg: rgba(255,255,255,0.98);
+            --radius-card: 20px;
+            --radius-btn: 10px;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #070e1c;
+            --bg-card: rgba(18, 28, 52, 0.95);
+            --bg-card-solid: #111e38;
+            --bg-card-hover: #172540;
+            --text-main: #e4ecff;
+            --text-muted: #7a90b8;
+            --text-light: #4a6080;
+            --primary: #4a78c8;
+            --accent: #d4b76a;
+            --shadow-soft: 0 2px 16px rgba(0,0,0,0.35);
+            --shadow-card: 0 4px 24px rgba(0,0,0,0.45);
+            --shadow-hover: 0 10px 36px rgba(0,0,0,0.6);
+            --border-color: rgba(255,255,255,0.06);
+            --border-accent: rgba(212,183,106,0.2);
+            --row-hover: #18264a;
+            --search-bg: rgba(17,30,56,0.98);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px 20px;
+            transition: background 0.4s ease, color 0.4s ease;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 5% 0%, rgba(30,58,114,0.06) 0%, transparent 45%),
+                radial-gradient(ellipse at 95% 100%, rgba(201,168,76,0.05) 0%, transparent 45%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 48px,
+                    rgba(15,32,68,0.018) 48px,
+                    rgba(15,32,68,0.018) 49px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 48px,
+                    rgba(15,32,68,0.018) 48px,
+                    rgba(15,32,68,0.018) 49px
+                );
+            pointer-events: none;
+            z-index: 0;
+        }
+        [data-theme="dark"] body::before {
+            background:
+                radial-gradient(ellipse at 5% 0%, rgba(30,58,114,0.12) 0%, transparent 45%),
+                radial-gradient(ellipse at 95% 100%, rgba(201,168,76,0.07) 0%, transparent 45%),
+                repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(255,255,255,0.012) 48px, rgba(255,255,255,0.012) 49px),
+                repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255,255,255,0.012) 48px, rgba(255,255,255,0.012) 49px);
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+
+        /* ======= WELCOME MODAL ======= */
+        .welcome-overlay {
+            position: fixed; inset: 0;
+            background: rgba(7,14,28,0.75);
+            backdrop-filter: blur(10px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+            opacity: 0; animation: fadeOverlay 0.4s 0.2s ease forwards;
+        }
+        @keyframes fadeOverlay { to { opacity: 1; } }
+
+        .welcome-modal {
+            background: var(--bg-card-solid);
+            border-radius: 24px;
+            padding: 52px 44px;
+            max-width: 460px;
+            width: 92%;
+            text-align: center;
+            box-shadow: 0 40px 100px rgba(7,14,28,0.35);
+            transform: scale(0.88) translateY(24px);
+            animation: popIn 0.5s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            border: 1px solid var(--border-accent);
+            position: relative;
+            overflow: hidden;
+        }
+        .welcome-modal::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--navy-700), var(--gold-400), var(--navy-700));
+        }
+        @keyframes popIn { to { transform: scale(1) translateY(0); } }
+
+        .welcome-emoji { font-size: 60px; display: block; margin-bottom: 18px; }
+        .welcome-modal h2 {
+            margin: 0 0 8px; font-size: 26px; font-weight: 900;
+            color: var(--text-main); letter-spacing: -0.5px;
+        }
+        .welcome-modal p { color: var(--text-muted); margin: 0 0 28px; font-size: 15px; font-weight: 600; }
+
+        .name-input-wrap { position: relative; margin-bottom: 16px; }
+        .name-input-wrap input {
+            width: 100%;
+            padding: 13px 20px;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-btn);
+            font-family: 'Cairo', sans-serif;
+            font-size: 15px; font-weight: 600;
+            color: var(--text-main);
+            background: var(--bg-body);
+            outline: none;
+            transition: var(--transition);
+            text-align: center;
+        }
+        .name-input-wrap input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+        }
+        .name-input-wrap input::placeholder { color: var(--text-light); }
+
+        .btn-welcome {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 13px 40px;
+            border-radius: var(--radius-btn);
+            font-family: 'Cairo', sans-serif;
+            font-size: 15px; font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(15,32,68,0.3);
+            width: 100%;
+            letter-spacing: 0.3px;
+        }
+        .btn-welcome:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(15,32,68,0.4); }
+
+        /* ======= ANIMATIONS ======= */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { opacity: 0; animation: fadeInUp 0.7s ease-out forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+
+        /* ======= FLOATING BUTTONS ======= */
+        .floating-btns {
+            position: fixed; bottom: 32px; left: 32px;
+            display: flex; flex-direction: column; gap: 12px;
+            z-index: 1000;
+        }
+        .float-btn {
+            width: 50px; height: 50px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(7,14,28,0.25);
+            transition: var(--transition);
+            border: none;
+            color: white;
+            text-decoration: none;
+        }
+        .theme-btn { background: var(--primary-gradient); }
+        .whatsapp-btn { background: var(--whatsapp-gradient); }
+        .top-btn { background: var(--gold-gradient); font-size: 18px; color: var(--navy-900) !important; }
+        .float-btn:hover { transform: translateY(-4px) scale(1.08); box-shadow: 0 12px 28px rgba(7,14,28,0.35); }
+
+        /* ======= SEARCH BAR ======= */
+        .search-wrap {
+            position: sticky; top: 14px;
+            z-index: 100;
+            margin-bottom: 28px;
+        }
+        .search-inner {
+            background: var(--search-bg);
+            border-radius: 14px;
+            border: 1.5px solid var(--border-color);
+            box-shadow: var(--shadow-card);
+            display: flex; align-items: center;
+            padding: 13px 22px;
+            gap: 12px;
+            backdrop-filter: blur(14px);
+            transition: var(--transition);
+        }
+        .search-inner:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.12), var(--shadow-card);
+        }
+        .search-icon { font-size: 18px; color: var(--text-light); flex-shrink: 0; }
+        .search-inner input {
+            flex: 1; border: none; background: transparent;
+            font-family: 'Cairo', sans-serif;
+            font-size: 15px; font-weight: 600;
+            color: var(--text-main); outline: none;
+        }
+        .search-inner input::placeholder { color: var(--text-light); }
+        .search-clear {
+            cursor: pointer; color: var(--text-light);
+            font-size: 18px; display: none;
+            transition: var(--transition);
+        }
+        .search-clear:hover { color: var(--text-main); transform: rotate(90deg); }
+        .search-results-count {
+            font-size: 12px; color: var(--accent); font-weight: 700;
+            padding: 5px 12px;
+            background: rgba(201,168,76,0.1);
+            border-radius: 6px;
+            display: none;
+            border: 1px solid rgba(201,168,76,0.2);
+        }
+
+        /* ======= HEADER ======= */
+        .header {
+            text-align: center;
+            padding: 48px 28px 40px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-card);
+            box-shadow: 0 10px 48px rgba(15,32,68,0.28);
+            margin-bottom: 28px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .header::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 16px,
+                    rgba(255,255,255,0.025) 16px,
+                    rgba(255,255,255,0.025) 17px
+                );
+            pointer-events: none;
+        }
+        .header::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-400), transparent);
+        }
+        /* ===== LOGO AREA ===== */
+        .logo-wrapper {
+            position: relative; z-index: 2;
+            margin-bottom: 20px;
+        }
+        .school-logo {
+            width: 84px; max-width: 84px; height: auto;
+            display: block;
+            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+            border-radius: 50%;
+            border: 3px solid rgba(201,168,76,0.6);
+            transition: var(--transition);
+        }
+        .school-logo:hover { transform: scale(1.04); }
+
+        .header h1 {
+            margin: 0 0 6px; font-size: 26px; font-weight: 900;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            position: relative; z-index: 2; line-height: 1.35;
+            letter-spacing: -0.3px;
+        }
+        .header p {
+            font-size: 14px; margin: 0; font-weight: 600;
+            opacity: 0.82; position: relative; z-index: 2; letter-spacing: 0.2px;
+        }
+        .welcome-banner {
+            margin-top: 18px;
+            background: rgba(201,168,76,0.18);
+            border-radius: 10px;
+            padding: 9px 26px;
+            font-size: 15px; font-weight: 700;
+            position: relative; z-index: 2;
+            border: 1px solid rgba(201,168,76,0.35);
+        }
+
+        /* ======= SECTION CARDS ======= */
+        .section-card {
+            background: var(--bg-card);
+            padding: 28px 28px 22px;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            margin-bottom: 22px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+        }
+        .section-card::before {
+            content: '';
+            position: absolute; top: 0; right: 0;
+            width: 4px; height: 60%; border-radius: 0 var(--radius-card) var(--radius-card) 0;
+            background: var(--primary-gradient);
+            opacity: 0; transition: var(--transition);
+        }
+        .ministerial::before { background: var(--purple-gradient); }
+        .ai-section::before { background: var(--amber-gradient); }
+        .resources-section::before { background: var(--teal-gradient); }
+        .section-card:hover::before { opacity: 1; }
+        .section-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .section-card.hidden-by-search { display: none; }
+
+        .section-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        h3 {
+            display: flex; align-items: center; gap: 10px;
+            color: var(--primary); font-size: 17px; font-weight: 800;
+            margin: 0; letter-spacing: -0.2px;
+        }
+        [data-theme="dark"] h3 { color: #7aaaf0; }
+        .ministerial h3 { color: #4a2080; }
+        [data-theme="dark"] .ministerial h3 { color: #a78bfa; }
+        .ai-section h3 { color: #8a5a00; }
+        [data-theme="dark"] .ai-section h3 { color: #d4b76a; }
+        .resources-section h3 { color: #07635a; }
+        [data-theme="dark"] .resources-section h3 { color: #2dd4bf; }
+        .contact-section h3 { color: #7a0a1a; }
+        [data-theme="dark"] .contact-section h3 { color: #fb7185; }
+
+        /* ======= TABLE ======= */
+        table { width: 100%; border-collapse: separate; border-spacing: 0 5px; }
+        th {
+            text-align: right; padding: 0 16px 10px;
+            color: var(--text-light); font-size: 12px; font-weight: 700;
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        tr td {
+            padding: 13px 16px;
+            background: rgba(15,32,68,0.025);
+            font-size: 14px; font-weight: 600;
+            vertical-align: middle;
+            transition: all 0.2s ease;
+            border-top: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+        }
+        [data-theme="dark"] tr td { background: rgba(255,255,255,0.025); }
+        tr td:first-child {
+            border-radius: 0 10px 10px 0;
+            border-right: 3px solid transparent;
+        }
+        tr td:last-child { border-radius: 10px 0 0 10px; }
+        tbody tr:hover td {
+            background: var(--row-hover);
+            border-top-color: var(--border-color);
+            border-bottom-color: var(--border-color);
+        }
+        tbody tr:hover td:first-child { border-right-color: var(--accent); }
+
+        .row-hidden { display: none; }
+
+        /* ======= BUTTONS ======= */
+        .action-btns {
+            display: flex; gap: 8px;
+            justify-content: flex-end; align-items: center;
+        }
+        .btn {
+            background: var(--primary-gradient);
+            color: white !important;
+            padding: 7px 16px;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            font-size: 13px; font-weight: 700;
+            display: inline-flex; align-items: center; justify-content: center;
+            transition: var(--transition);
+            border: none; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(15,32,68,0.2);
+            white-space: nowrap; letter-spacing: 0.2px;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(15,32,68,0.3); }
+        .btn-purple { background: var(--purple-gradient); box-shadow: 0 2px 8px rgba(74,32,128,0.2); }
+        .btn-purple:hover { box-shadow: 0 6px 16px rgba(74,32,128,0.35); }
+        .btn-amber { background: var(--amber-gradient); box-shadow: 0 2px 8px rgba(184,124,16,0.2); }
+        .btn-amber:hover { box-shadow: 0 6px 16px rgba(184,124,16,0.35); }
+        .btn-teal { background: var(--teal-gradient); box-shadow: 0 2px 8px rgba(7,99,90,0.2); }
+        .btn-teal:hover { box-shadow: 0 6px 16px rgba(7,99,90,0.35); }
+        .btn-rose { background: var(--rose-gradient); box-shadow: 0 2px 8px rgba(156,26,48,0.2); }
+        .btn-rose:hover { box-shadow: 0 6px 16px rgba(156,26,48,0.35); }
+        .btn-copy {
+            background: transparent;
+            color: var(--text-muted) !important;
+            border: 1.5px solid var(--border-color);
+            box-shadow: none; padding: 6px 12px;
+            font-size: 12px;
+        }
+        .btn-copy:hover {
+            background: var(--bg-body);
+            color: var(--text-main) !important;
+            border-color: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: none;
+        }
+        [data-theme="dark"] .btn-copy:hover { background: rgba(255,255,255,0.06); }
+
+        /* ======= AI TOOLS GRID ======= */
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+            gap: 12px;
+        }
+        .ai-card {
+            background: rgba(15,32,68,0.03);
+            border-radius: 14px;
+            padding: 22px 16px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            position: relative; overflow: hidden;
+        }
+        .ai-card::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+            background: var(--gold-gradient);
+            transform: scaleX(0); transition: var(--transition);
+        }
+        [data-theme="dark"] .ai-card { background: rgba(255,255,255,0.025); }
+        .ai-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            background: var(--bg-card-solid);
+            border-color: var(--border-accent);
+        }
+        .ai-card:hover::after { transform: scaleX(1); }
+        .ai-card .ai-icon { font-size: 34px; line-height: 1; }
+        .ai-card .ai-name { font-size: 13px; font-weight: 800; color: var(--text-main); }
+        .ai-card .ai-desc { font-size: 11px; color: var(--text-muted); font-weight: 600; line-height: 1.4; }
+
+        /* ======= RESOURCES GRID ======= */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+        }
+        .resource-card {
+            background: rgba(15,32,68,0.03);
+            border-radius: 14px;
+            padding: 20px 18px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            display: flex; flex-direction: column; justify-content: space-between;
+            gap: 10px;
+        }
+        [data-theme="dark"] .resource-card { background: rgba(255,255,255,0.025); }
+        .resource-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--border-accent); }
+        .resource-card .r-icon { font-size: 26px; }
+        .resource-card .r-title { font-size: 14px; font-weight: 800; color: var(--text-main); }
+        .resource-card .r-desc { font-size: 12px; color: var(--text-muted); font-weight: 600; line-height: 1.5; flex-grow: 1; }
+
+        /* ======= INQUIRY SECTION ======= */
+        .inquiry-wrap {
+            display: flex; flex-direction: column; gap: 16px;
+        }
+        .inq-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+        }
+        .inq-field { display: flex; flex-direction: column; gap: 6px; }
+        .inq-field label { font-size: 12px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.4px; text-transform: uppercase; }
+        .inq-field input, .inq-field select, .inq-field textarea {
+            width: 100%;
+            padding: 11px 15px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px; font-weight: 600;
+            color: var(--text-main);
+            background: var(--bg-body);
+            outline: none;
+            transition: var(--transition);
+            resize: none;
+        }
+        [data-theme="dark"] .inq-field input,
+        [data-theme="dark"] .inq-field select,
+        [data-theme="dark"] .inq-field textarea {
+            background: rgba(255,255,255,0.04);
+        }
+        .inq-field input:focus, .inq-field select:focus, .inq-field textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+            background: var(--bg-card-solid);
+        }
+        .inq-field select option { background: var(--bg-card-solid); color: var(--text-main); }
+        .inq-btns { display: flex; gap: 12px; }
+        .btn-wa { background: var(--whatsapp-gradient); box-shadow: 0 3px 12px rgba(18,140,126,0.25); }
+        .btn-wa:hover { box-shadow: 0 6px 20px rgba(18,140,126,0.4); }
+        .btn-email { background: linear-gradient(135deg, #b03020, #d44030); box-shadow: 0 3px 12px rgba(176,48,32,0.25); }
+        .btn-email:hover { box-shadow: 0 6px 20px rgba(176,48,32,0.4); }
+        .char-count { font-size: 11px; color: var(--text-light); text-align: left; font-weight: 600; }
+        .inq-note {
+            font-size: 12px; color: var(--text-light); font-weight: 600;
+            padding: 10px 14px;
+            background: rgba(15,32,68,0.04);
+            border-radius: 8px;
+            border-right: 3px solid var(--border-accent);
+        }
+        [data-theme="dark"] .inq-note { background: rgba(255,255,255,0.04); }
+
+        /* ======= FAQ ======= */
+        .faq-item {
+            border: 1px solid var(--border-color);
+            margin-bottom: 8px; border-radius: 12px;
+            overflow: hidden; transition: var(--transition);
+            background: rgba(15,32,68,0.02);
+        }
+        [data-theme="dark"] .faq-item { background: rgba(255,255,255,0.02); }
+        .faq-item:hover { border-color: var(--border-accent); }
+        .faq-question {
+            padding: 15px 18px; cursor: pointer;
+            font-weight: 700; font-size: 14px;
+            display: flex; justify-content: space-between; align-items: center;
+            user-select: none; letter-spacing: -0.1px;
+        }
+        .faq-question .icon {
+            background: rgba(15,32,68,0.06);
+            color: var(--primary); width: 26px; height: 26px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 8px; transition: var(--transition);
+            font-size: 16px; flex-shrink: 0;
+        }
+        [data-theme="dark"] .faq-question .icon { background: rgba(122,170,240,0.1); color: #7aaaf0; }
+        .faq-answer {
+            padding: 0 18px; max-height: 0;
+            overflow: hidden; transition: all 0.35s ease;
+            opacity: 0; color: var(--text-muted); font-weight: 600;
+            line-height: 1.8; font-size: 14px;
+        }
+        .faq-item.active .faq-answer { max-height: 400px; padding: 0 18px 18px; opacity: 1; }
+        .faq-item.active .faq-question .icon { transform: rotate(180deg); background: var(--primary-gradient); color: white; }
+
+        /* ======= NO RESULTS ======= */
+        .no-results {
+            text-align: center; padding: 60px 20px;
+            display: none;
+        }
+        .no-results.visible { display: block; }
+        .no-results .nr-emoji { font-size: 52px; margin-bottom: 16px; }
+        .no-results p { color: var(--text-muted); font-size: 15px; font-weight: 600; }
+
+        /* ======= FOOTER ======= */
+        .footer {
+            text-align: center; padding: 32px 20px 16px;
+            color: var(--text-muted); font-size: 13px; font-weight: 600;
+        }
+        .footer a { color: var(--accent); text-decoration: none; }
+        .footer p { margin: 4px 0; }
+        .visit-counter-box {
+            margin-top: 16px; display: inline-block;
+            padding: 10px 24px;
+            background: var(--bg-card); border-radius: 10px;
+            box-shadow: var(--shadow-soft); border: 1px solid var(--border-accent);
+        }
+        .visit-counter-box span { color: var(--accent); font-size: 17px; font-weight: 900; }
+        [data-theme="dark"] .visit-counter-box span { color: var(--gold-300); }
+        /* ======= SCROLL PROGRESS BAR ======= */
+        .progress-bar {
+            position: fixed; top: 0; right: 0; left: 0;
+            height: 3px; z-index: 9998;
+            background: linear-gradient(90deg, var(--navy-700), var(--gold-400), var(--gold-200));
+            transform-origin: right center;
+            transform: scaleX(0);
+            transition: transform 0.1s linear;
+            box-shadow: 0 0 8px rgba(201,168,76,0.5);
+        }
+
+        /* ======= HEADER STATS ======= */
+        .header-stats {
+            display: flex; gap: 20px;
+            margin-top: 22px;
+            position: relative; z-index: 2;
+            flex-wrap: wrap; justify-content: center;
+        }
+        .stat-item {
+            display: flex; flex-direction: column; align-items: center;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(201,168,76,0.3);
+            border-radius: 12px;
+            padding: 10px 20px;
+            min-width: 90px;
+            transition: var(--transition);
+        }
+        .stat-item:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
+        .stat-num {
+            font-size: 26px; font-weight: 900;
+            color: var(--gold-200);
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .stat-label {
+            font-size: 11px; font-weight: 700;
+            color: rgba(255,255,255,0.75);
+            margin-top: 4px; letter-spacing: 0.3px;
+        }
+
+        /* ======= SECTION NUMBER BADGE ======= */
+        .section-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 30px; height: 30px;
+            border-radius: 8px;
+            background: var(--primary-gradient);
+            color: white;
+            font-size: 13px; font-weight: 900;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(15,32,68,0.2);
+        }
+        .ministerial .section-badge { background: var(--purple-gradient); }
+        .ai-section .section-badge { background: var(--amber-gradient); }
+        .resources-section .section-badge { background: var(--teal-gradient); }
+
+        /* ======= SCROLL REVEAL ======= */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ======= RIPPLE ======= */
+        .btn { overflow: hidden; position: relative; }
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.35);
+            transform: scale(0);
+            animation: rippleAnim 0.55s linear;
+            pointer-events: none;
+        }
+        @keyframes rippleAnim {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* ======= KEYBOARD SHORTCUT HINT ======= */
+        .search-kbd {
+            font-size: 11px; font-weight: 700;
+            color: var(--text-light);
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 2px 7px;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        @media (max-width: 600px) { .search-kbd { display: none; } }
+
+        /* ======= SECTION RESOURCE COUNT BADGE ======= */
+        .res-count {
+            font-size: 11px; font-weight: 700;
+            background: rgba(201,168,76,0.12);
+            color: var(--accent);
+            border: 1px solid var(--border-accent);
+            border-radius: 20px;
+            padding: 3px 10px;
+            margin-right: auto;
+        }
+        [data-theme="dark"] .res-count { background: rgba(201,168,76,0.08); }
+
+        /* ======= ANIMATED COUNTER ======= */
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stat-num.animate { animation: countUp 0.4s ease forwards; }
+
+        /* ======= TOOLTIP ======= */
+        .btn-copy { position: relative; }
+        .btn-copy::after {
+            content: 'نسخ الرابط';
+            position: absolute;
+            bottom: calc(100% + 6px);
+            right: 50%; transform: translateX(50%);
+            background: var(--navy-800);
+            color: white;
+            font-size: 11px; font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .btn-copy:hover::after { opacity: 1; }
+        [data-theme="dark"] .btn-copy::after { background: #2a3a5a; }
+
+        /* ======= RESPONSIVE ======= */
+        @media (max-width: 768px) {
+            body { padding: 12px; }
+            .header h1 { font-size: 20px; }
+            table, thead, tbody, th, td, tr { display: block; }
+            thead tr { position: absolute; top: -9999px; left: -9999px; }
+            tr { margin-bottom: 12px; border-radius: 14px; overflow: hidden; }
+            tr td { padding: 12px 14px; border-radius: 0 !important; background: var(--bg-card); border-bottom: 1px solid var(--border-color); }
+            tr td:last-child { border-bottom: none; }
+            .action-btns { justify-content: flex-start; flex-wrap: wrap; }
+            .ai-grid { grid-template-columns: repeat(2, 1fr); }
+            .inq-row { grid-template-columns: 1fr; }
+            .resources-grid { grid-template-columns: 1fr; }
+            .floating-btns { bottom: 20px; left: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-modal">
+        <span class="welcome-emoji">👋</span>
+        <h2>أهلاً وسهلاً!</h2>
+        <p>أدخل اسمك لنخصّص تجربتك في البوابة</p>
+        <div class="name-input-wrap">
+            <input type="text" id="nameInput" placeholder="اكتب اسمك هنا..." maxlength="30">
+        </div>
+        <button class="btn-welcome" onclick="saveUserName()">ادخل البوابة 🚀</button>
+    </div>
+</div>
+
+<div class="floating-btns">
+    <a href="https://wa.me/972522057002?text=مرحباً أستاذ مؤيد، أحتاج مساعدة تقنية." target="_blank" class="float-btn whatsapp-btn" title="تواصل عبر واتساب">💬</a>
+    <button class="float-btn theme-btn" onclick="toggleTheme()" title="تبديل الوضع">🌓</button>
+    <button class="float-btn top-btn" onclick="scrollToTop()" title="للأعلى">↑</button>
+</div>
+
+<div class="container">
+
+    <div class="header fade-in">
+        <div class="logo-wrapper">
+            <img src="logo amjad.jpeg" alt="شعار مدرسة الأمجاد" class="school-logo" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='block'">
+            <div id="logoFallback" style="display:none; font-size:52px;">🏫</div>
+        </div>
+        <h1>مدرسة الأمجاد الابتدائية المختلطة | בית ספר אלאמגאד</h1>
+        <p>بوابة المعلمين الرقمية الشاملة — دليلك الذكي لكل ما تحتاجه</p>
+        <div class="welcome-banner" id="welcomeBanner" style="display:none;">
+            مرحباً بك <span id="displayName"></span>! ✨
+            <button onclick="resetUserName()" style="background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); color:white; border-radius:6px; padding:2px 10px; font-family:'Cairo',sans-serif; font-size:12px; font-weight:700; cursor:pointer; margin-right:8px;">تغيير</button>
+        </div>
+        <div class="header-stats">
+            <div class="stat-item">
+                <span class="stat-num" id="stat-links">0</span>
+                <span class="stat-label">رابط تعليمي</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" id="stat-ai">6</span>
+                <span class="stat-label">أداة ذكاء اصطناعي</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" id="stat-res">4</span>
+                <span class="stat-label">مورد تعليمي</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-wrap fade-in delay-1">
+        <div class="search-inner">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="ابحث في البوابة... (روابط، أدوات، أسئلة)" oninput="handleSearch(this.value)">
+            <span class="search-clear" id="searchClear" onclick="clearSearch()">✕</span>
+            <span class="search-results-count" id="searchCount"></span>
+            <span class="search-kbd" id="searchKbd">/ للبحث</span>
+        </div>
+    </div>
+
+    <div class="no-results" id="noResults">
+        <div class="nr-emoji">🔎</div>
+        <p>لم يُعثر على نتائج — جرّب كلمة مختلفة</p>
+    </div>
+
+    <div class="section-card ministerial reveal" data-section="وزاري وزارة موظف مدرسة افتراضية">
+        <div class="section-header">
+            <span class="section-badge">١</span>
+            <h3>🏛️ الخدمات الوزارية وبوابة الموظف</h3>
+            <span class="res-count">3 روابط</span>
+        </div>
+        <table>
+            <thead><tr><th>الموقع / الخدمة</th><th>الوصف</th><th>الإجراء</th></tr></thead>
+            <tbody>
+                <tr data-search="مدرسة افتراضية حساب شخصي خدمات ذاتية">
+                    <td>🌐 المدرسة الافتراضية - اللغة العربية</td>
+                    <td>الوصول إلى الحساب الشخصي والخدمات الذاتية</td>
+                    <td><div class="action-btns">
+                        <a href="https://my.edu.gov.il/home" target="_blank" class="btn btn-purple">دخول</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://my.edu.gov.il/home')">نسخ</button>
+                    </div></td>
+                </tr>
+                <tr data-search="مركز تعلم رقمي طوارئ ارشادات وزارة">
+                    <td>📊 مركز التعلم الرقمي</td>
+                    <td>إرشادات الوزارة للتعلم الرقمي في حالات الطوارئ</td>
+                    <td><div class="action-btns">
+                        <a href="https://poh.education.gov.il/service-support/digital-learning/" target="_blank" class="btn btn-purple">دخول</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://poh.education.gov.il/service-support/digital-learning/')">نسخ</button>
+                    </div></td>
+                </tr>
+                <tr data-search="مواضيع مواد تعلم رقمي pdf">
+                    <td>📚 הנושאים בלמידה דיגיטלית 16</td>
+                    <td>הנושאים בלמידה דיגיטלית 16 (PDF)</td>
+                    <td><div class="action-btns">
+                        <a href="https://meyda.education.gov.il/files/PortalOvdeyHoraa/POH/Courses/digital-courses-topics.pdf" target="_blank" class="btn btn-purple">فتح</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://meyda.education.gov.il/files/PortalOvdeyHoraa/POH/Courses/digital-courses-topics.pdf')">نسخ</button>
+                    </div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-card reveal" data-section="classroom جوجل فصل صف">
+        <div class="section-header">
+            <span class="section-badge">٢</span>
+            <h3>👨‍🏫 شروحات وأدوات Google Classroom</h3>
+            <span class="res-count">6 روابط</span>
+        </div>
+        <table>
+            <thead><tr><th>المحتوى / الأداة</th><th>نوع الملف</th><th>الإجراء</th></tr></thead>
+            <tbody>
+                <tr data-search="خدمات حوسبة classroom تكسف">
+                    <td>🛠️ خدمات الحوسبة لـ Classroom</td>
+                    <td>موقع رسمي</td>
+                    <td><div class="action-btns">
+                        <a href="https://pop.education.gov.il/sherutey-tiksuv-bachinuch/classroom" target="_blank" class="btn">فتح</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://pop.education.gov.il/sherutey-tiksuv-bachinuch/classroom')">نسخ</button>
+                    </div></td>
+                </tr>
+                <tr data-search="gemini ذكاء اصطناعي بيئة تعليمية">
+                    <td>🤖 بيئة Gemini AI التعليمية</td>
+                    <td>نماذج تفاعلية</td>
+                    <td><div class="action-btns">
+                        <a href="https://gemini.google.com/share/649e732754e4?hl=iw" target="_blank" class="btn">استعراض</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://gemini.google.com/share/649e732754e4?hl=iw')">نسخ</button>
+                    </div></td>
+                </tr>
+                <tr data-search="كتيب ارشاد classroom genially دليل">
+                    <td>📄 كتيب إرشاد Classroom</td>
+                    <td>Genially</td>
+                    <td><div class="action-btns">
+                        <a href="https://view.genially.com/652bbb09235f5f0010263719" target="_blank" class="btn">فتح</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://view.genially.com/652bbb09235f5f0010263719')">نسخ</button>
+                    </div></td>
+                </tr>
+                <tr data-search="دعم مساعدة classroom مركز">
+                    <td>❓ مركز دعم Classroom</td>
+                    <td>موقع مساعدة</td>
+                    <td><div class="action-btns">
+                        <a href="https://support.google.com/edu/classroom" target="_blank" class="btn">زيارة</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://support.google.com/edu/classroom')">نسخ</button>
+                    </div></td>
+                </tr>
+                <tr data-search="مهمة تعليمية انشاء فيديو يوتيوب">
+                    <td>🎥 إنشاء مهمة تعليمية - اللغة العربية</td>
+                    <td>فيديو (يوتيوب)</td>
+                    <td><div class="action-btns">
+                        <a href="https://www.youtube.com/watch?v=J7i52p4ya_c" target="_blank" class="btn">مشاهدة</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://www.youtube.com/watch?v=J7i52p4ya_c')">نسخ</button>
+                    </div></td>
+                </tr>
+                <tr data-search="انشاء صفوف مدرسة افتراضية classroom فيديو">
+                    <td>🎥 إنشاء صفوف عبر موقع المدرسة الافتراضية</td>
+                    <td>فيديو (يوتيوب)</td>
+                    <td><div class="action-btns">
+                        <a href="https://youtu.be/0qsbS-W-oUo" target="_blank" class="btn">مشاهدة</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://youtu.be/0qsbS-W-oUo')">نسخ</button>
+                    </div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-card reveal" data-section="meet اجتماع لقاء مباشر">
+        <div class="section-header">
+            <span class="section-badge">٣</span>
+            <h3>🎥 شروحات وأدوات Google Meet</h3>
+            <span class="res-count">4 روابط</span>
+        </div>
+        <table>
+            <thead><tr><th>المحتوى</th><th>نوع الملف</th><th>الإجراء</th></tr></thead>
+            <tbody>
+                  <tr data-search="لقاء تزامني meet كيتتي">
+                    <td>☁️ اللقاءات التزامنية (Meet)</td>
+                    <td>موقع سحابي</td>
+                    <td><div class="action-btns">
+                        <a href="https://sites.google.com/israschool.org.il/svivot-anan/%D7%9E%D7%A4%D7%92%D7%A9-%D7%A1%D7%99%D7%A0%D7%9B%D7%A8%D7%95%D7%A0%D7%99-%D7%9B%D7%99%D7%AA%D7%AA%D7%99meet" target="_blank" class="btn">فتح</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://sites.google.com/israschool.org.il/svivot-anan/%D7%9E%D7%A4%D7%92%D7%A9-%D7%A1%D7%99%D7%A0%D7%9B%D7%A8%D7%95%D7%A0%D7%99-%D7%9B%D7%99%D7%AA%D7%AA%D7%99meet')">نسخ</button>
+                    </div></td>
+                </tr>
+                <tr data-search="دليل meet وزاري pdf">
+                    <td>📄 دليل Meet الوزاري</td>
+                    <td>PDF</td>
+                    <td><div class="action-btns">
+                        <a href="https://meyda.education.gov.il/files/edu-hub/sherut/A_Google_meet.pdf" target="_blank" class="btn">فتح</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://meyda.education.gov.il/files/edu-hub/sherut/A_Google_meet.pdf')">نسخ</button>
+                    </div></td>
+                </tr>
+                <tr data-search="منصة meet عربي genially">
+                    <td>🌐 منصة Meet - اللغة العربية</td>
+                    <td>Genially</td>
+                    <td><div class="action-btns">
+                        <a href="https://view.genially.com/652555ec7891ee0011282c64" target="_blank" class="btn">فتح</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://view.genially.com/652555ec7891ee0011282c64')">نسخ</button>
+                    </div></td>
+                </tr>
+                <tr data-search="تفعيل رابط meet جوجل فيديو يوتيوب">
+                    <td>🎥 تفعيل رابط Google Meet - اللغة العربية</td>
+                    <td>فيديو (يوتيوب)</td>
+                    <td><div class="action-btns">
+                        <a href="https://youtu.be/xyJ0c_6A_vU" target="_blank" class="btn">مشاهدة</a>
+                        <button class="btn btn-copy" onclick="copyLink(this, 'https://youtu.be/xyJ0c_6A_vU')">نسخ</button>
+                    </div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-card ai-section reveal" data-section="ذكاء اصطناعي ai أدوات تقنية">
+        <div class="section-header">
+            <span class="section-badge">٤</span>
+           <h3>🤖 أدوات الذكاء الاصطناعي للمعلمين</h3>
+        </div>
+        <div class="ai-grid">
+            <a href="https://chatgpt.com" target="_blank" class="ai-card" data-search="chatgpt chat gpt ذكاء اصطناعي">
+                <div class="ai-icon">💬</div>
+                <div class="ai-name">ChatGPT</div>
+                <div class="ai-desc">كتابة، شرح، تخطيط</div>
+            </a>
+            <a href="https://gemini.google.com" target="_blank" class="ai-card" data-search="gemini جوجل ذكاء اصطناعي">
+                <div class="ai-icon">✨</div>
+                <div class="ai-name">Google Gemini</div>
+                <div class="ai-desc">مدمج مع Google Workspace</div>
+            </a>
+            <a href="https://claude.ai" target="_blank" class="ai-card" data-search="claude anthropic ذكاء اصطناعي">
+                <div class="ai-icon">🧠</div>
+                <div class="ai-name">Claude AI</div>
+                <div class="ai-desc">تحليل وكتابة متقدمة</div>
+            </a>
+            <a href="https://www.canva.com/ai-image-generator/" target="_blank" class="ai-card" data-search="canva صور تصميم ذكاء اصطناعي">
+                <div class="ai-icon">🎨</div>
+                <div class="ai-name">Canva AI</div>
+                <div class="ai-desc">تصميم وصور تعليمية</div>
+            </a>
+            <a href="https://gamma.app" target="_blank" class="ai-card" data-search="gamma عروض تقديمية ذكاء اصطناعي">
+                <div class="ai-icon">📊</div>
+                <div class="ai-name">Gamma App</div>
+                <div class="ai-desc">عروض تقديمية بالذكاء</div>
+            </a>
+            <a href="https://quizgecko.com" target="_blank" class="ai-card" data-search="اختبارات quiz اسئلة ذكاء اصطناعي">
+                <div class="ai-icon">📝</div>
+                <div class="ai-name">QuizGecko</div>
+                <div class="ai-desc">إنشاء اختبارات تلقائية</div>
+            </a>
+        </div>
+    </div>
+ 
+    <!-- ======= SECTION 5: RESOURCES (NEW) ======= -->
+    <div class="section-card resources-section reveal" data-section="موارد تعليمية مواد درس مصادر">
+        <div class="section-header">
+            <span class="section-badge">٥</span>
+            <h3>📚 موارد تعليمية إضافية</h3>
+        </div>
+        <div class="resources-grid">
+            <div class="resource-card" data-search="يوتيوب تعليمي فيديو عربي">
+                <div class="r-icon">🎬</div>
+                <div class="r-title">قناة المعلم العربي</div>
+                <div class="r-desc">فيديوهات تعليمية شاملة للمناهج</div>
+                <a href="https://www.youtube.com/@arabicteacher" target="_blank" class="btn btn-teal" style="font-size:12px; padding:6px 14px;">زيارة</a>
+            </div>
+            <div class="resource-card" data-search="kahoot لعبة اختبار تفاعلي">
+                <div class="r-icon">🎮</div>
+                <div class="r-title">Kahoot!</div>
+                <div class="r-desc">ألعاب تعليمية واختبارات تفاعلية</div>
+                <a href="https://kahoot.com" target="_blank" class="btn btn-teal" style="font-size:12px; padding:6px 14px;">زيارة</a>
+            </div>
+            <div class="resource-card" data-search="padlet لوح تفاعلي تشاركي">
+                <div class="r-icon">📌</div>
+                <div class="r-title">Padlet</div>
+                <div class="r-desc">لوح تشاركي رقمي للصف</div>
+                <a href="https://padlet.com" target="_blank" class="btn btn-teal" style="font-size:12px; padding:6px 14px;">زيارة</a>
+            </div>
+            <div class="resource-card" data-search="wordwall اختبار نشاط تعليمي">
+                <div class="r-icon">🔤</div>
+                <div class="r-title">Wordwall</div>
+                <div class="r-desc">أنشطة تعليمية تفاعلية ممتعة</div>
+                <a href="https://wordwall.net" target="_blank" class="btn btn-teal" style="font-size:12px; padding:6px 14px;">زيارة</a>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- ======= SECTION 6: INQUIRY (NEW) ======= -->
+    <div class="section-card reveal" data-section="استفسار رسالة تواصل سؤال مساعدة">
+        <div class="section-header">
+            <span class="section-badge">٦</span>
+            <h3>✉️ أرسل استفسارك التقني</h3>
+        </div>
+        <div class="inquiry-wrap">
+ 
+            <div class="inq-row">
+                <div class="inq-field">
+                    <label>اسمك</label>
+                    <input type="text" id="inqName" placeholder="مثال: أستاذ أحمد..." maxlength="50">
+                </div>
+                <div class="inq-field">
+                    <label>موضوع الاستفسار</label>
+                    <select id="inqTopic">
+                        <option value="">اختر الموضوع...</option>
+                        <option value="مشكلة في Google Classroom">🏫 مشكلة في Google Classroom</option>
+                        <option value="مشكلة في Google Meet">🎥 مشكلة في Google Meet</option>
+                        <option value="كلمة مرور أو حساب">🔐 كلمة مرور / حساب</option>
+                        <option value="أدوات الذكاء الاصطناعي">🤖 أدوات الذكاء الاصطناعي</option>
+                        <option value="طلب تدريب أو شرح">📚 طلب تدريب أو شرح</option>
+                        <option value="مشكلة تقنية أخرى">🛠️ مشكلة تقنية أخرى</option>
+                        <option value="اقتراح أو ملاحظة">💡 اقتراح أو ملاحظة</option>
+                    </select>
+                </div>
+            </div>
+ 
+            <div class="inq-field">
+                <label>تفاصيل استفسارك</label>
+                <textarea id="inqMessage" rows="5" placeholder="اكتب استفسارك بالتفصيل هنا... كلما كانت التفاصيل أوضح، كان الرد أسرع وأدق ✨" maxlength="1000" oninput="updateCharCount(this)"></textarea>
+                <div class="char-count"><span id="charCount">0</span> / 1000 حرف</div>
+            </div>
+ 
+            <div class="inq-btns">
+                <button class="btn btn-wa" style="flex:1; padding:13px 20px; font-size:15px;" onclick="sendViaWhatsApp()">
+                    💬 إرسال عبر واتساب
+                </button>
+                <button class="btn btn-email" style="flex:1; padding:13px 20px; font-size:15px;" onclick="sendViaEmail()">
+                    📧 إرسال عبر الإيميل
+                </button>
+            </div>
+ 
+            <div class="inq-note">
+                ℹ️ سيتم فتح تطبيق واتساب أو الإيميل مع الرسالة جاهزة للإرسال تلقائياً
+            </div>
+ 
+        </div>
+    </div>
+ 
+    <!-- ======= SECTION 7: FAQ ======= -->
+    <div class="section-card reveal" data-section="اسئلة شائعة مشاكل تقنية حلول">
+        <div class="section-header">
+            <span class="section-badge">٧</span>
+            <h3>❓ أسئلة تقنية شائعة</h3>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item" data-search="كلمة مرور نسيت حساب">
+                <div class="faq-question">نسيت كلمة مرور حساب المدرسة الخاص بي؟ <span class="icon">↓</span></div>
+                <div class="faq-answer"><br>يرجى التواصل مع مسؤول الحاسوب في المدرسة أو مربي الصف لإعادة تعيين كلمة المرور فوراً عبر لوحة تحكم الأدمن الخاصة بالمدرسة.</div>
+            </div>
+            <div class="faq-item" data-search="ميكروفون لا يعمل meet صلاحية">
+                <div class="faq-question">الميكروفون لا يعمل في Google Meet؟ <span class="icon">↓</span></div>
+                <div class="faq-answer"><br>تأكد من إعطاء "صلاحية الوصول" للمتصفح من خلال النقر على أيقونة القفل في شريط العنوان بجانب الرابط، ثم تفعيل خيار الميكروفون وإعادة تحميل الصفحة.</div>
+            </div>
+            <div class="faq-item" data-search="طالب لا يستطيع دخول classroom">
+                <div class="faq-question">طالب لا يستطيع الدخول إلى Classroom؟ <span class="icon">↓</span></div>
+                <div class="faq-answer"><br>تأكد أن الطالب يستخدم حساب المدرسة (edu.gov.il) وليس حساباً شخصياً. إذا كان الحساب صحيحاً، أعد إرسال رابط الصف من إعدادات Classroom ← "الدعوة عبر الرابط".</div>
+            </div>
+            <div class="faq-item" data-search="تسجيل حضور غياب">
+                <div class="faq-question">كيف أسجّل الحضور والغياب رقمياً؟ <span class="icon">↓</span></div>
+                <div class="faq-answer"><br>يمكنك استخدام Google Forms لإنشاء استمارة حضور وإضافتها كمهمة في Classroom، أو استخدام جداول Google Sheets لمتابعة يومية منظّمة ومشاركتها مع الإدارة.</div>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- ======= FOOTER ======= -->
+    <div class="footer fade-in delay-6">
+        <p>👨‍💻 تصميم وإعداد: المعلم <strong>مؤيد بيضون</strong></p>
+        <p>© جميع الحقوق محفوظة لمدرسة الأمجاد الابتدائية المختلطة</p>
+        <div class="visit-counter-box">
+            مرحباً بك! زيارتك رقم: <span id="visit-counter">1</span> 🚀
+        </div>
+    </div>
+ 
+</div>
+ 
+<script>
+    const STORAGE_KEY = 'amjad_v4_username';
+
+    // ======= WELCOME MODAL =======
+    function saveUserName() {
+        const name = document.getElementById('nameInput').value.trim();
+        const displayName = name || 'أستاذ/ة';
+        localStorage.setItem(STORAGE_KEY, displayName);
+        showWelcomeBanner(displayName);
+        const overlay = document.getElementById('welcomeOverlay');
+        overlay.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        overlay.style.opacity = '0';
+        overlay.style.transform = 'scale(1.04)';
+        setTimeout(() => overlay.remove(), 380);
+        const inqName = document.getElementById('inqName');
+        if (inqName && !inqName.value) inqName.value = displayName;
+    }
+ 
+    function showWelcomeBanner(name) {
+        const banner = document.getElementById('welcomeBanner');
+        document.getElementById('displayName').textContent = name;
+        banner.style.display = 'inline-block';
+    }
+
+    function resetUserName() {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+    }
+
+    document.getElementById('nameInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter') saveUserName();
+    });
+ 
+    // ======= SEARCH =======
+    function handleSearch(query) {
+        const q = query.trim().toLowerCase();
+        const clearBtn = document.getElementById('searchClear');
+        const countEl = document.getElementById('searchCount');
+        clearBtn.style.display = q ? 'block' : 'none';
+ 
+        if (!q) {
+            document.querySelectorAll('.section-card').forEach(s => s.classList.remove('hidden-by-search'));
+            document.querySelectorAll('tr[data-search], .ai-card[data-search], .resource-card[data-search], .contact-card[data-search], .faq-item[data-search]').forEach(r => r.classList.remove('row-hidden'));
+            document.getElementById('noResults').classList.remove('visible');
+            countEl.style.display = 'none';
+            return;
+        }
+ 
+        let totalMatches = 0;
+        document.querySelectorAll('.section-card').forEach(section => {
+            const sectionText = (section.getAttribute('data-section') || '').toLowerCase();
+            const rows = section.querySelectorAll('tr[data-search], .ai-card[data-search], .resource-card[data-search], .contact-card[data-search], .faq-item[data-search]');
+            let sectionMatches = 0;
+ 
+            rows.forEach(row => {
+                const rowText = (row.getAttribute('data-search') || '').toLowerCase() + ' ' + row.textContent.toLowerCase();
+                if (rowText.includes(q) || sectionText.includes(q)) {
+                    row.classList.remove('row-hidden');
+                    sectionMatches++;
+                } else {
+                    row.classList.add('row-hidden');
+                }
+            });
+ 
+            // Show section if it has no rows (like contact/resources grids) but matches section keyword
+            const hasNoSearchableRows = rows.length === 0;
+            const sectionMatchesQuery = sectionText.includes(q) || section.textContent.toLowerCase().includes(q);
+ 
+            if (sectionMatches > 0 || (hasNoSearchableRows && sectionMatchesQuery)) {
+                section.classList.remove('hidden-by-search');
+                totalMatches += sectionMatches || 1;
+            } else if (!sectionMatchesQuery) {
+                section.classList.add('hidden-by-search');
+            } else {
+                section.classList.remove('hidden-by-search');
+                totalMatches++;
+            }
+        });
+ 
+        document.getElementById('noResults').classList.toggle('visible', totalMatches === 0);
+        countEl.style.display = 'inline-block';
+        countEl.textContent = totalMatches + ' نتيجة';
+    }
+ 
+    function clearSearch() {
+        document.getElementById('searchInput').value = '';
+        handleSearch('');
+        document.getElementById('searchInput').focus();
+    }
+ 
+    // ======= THEME =======
+    function toggleTheme() {
+        const body = document.body;
+        const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('amjad_theme', newTheme);
+    }
+ 
+    // ======= COPY =======
+    function copyLink(btn, url) {
+        navigator.clipboard.writeText(url).then(() => {
+            const orig = btn.innerHTML;
+            btn.innerHTML = '✔️ نُسخ';
+            btn.style.background = 'linear-gradient(135deg, #10b981, #34d399)';
+            btn.style.color = 'white';
+            btn.style.borderColor = 'transparent';
+            setTimeout(() => {
+                btn.innerHTML = orig;
+                btn.style.background = btn.style.color = btn.style.borderColor = '';
+            }, 2200);
+        }).catch(() => alert('حدث خطأ أثناء النسخ!'));
+    }
+ 
+    // ======= INQUIRY =======
+    function updateCharCount(el) {
+        document.getElementById('charCount').textContent = el.value.length;
+    }
+ 
+    function buildMessage() {
+        const name = document.getElementById('inqName').value.trim() || localStorage.getItem(STORAGE_KEY) || 'معلم';
+        const topic = document.getElementById('inqTopic').value;
+        const msg = document.getElementById('inqMessage').value.trim();
+ 
+        if (!topic) { alert('⚠️ يرجى اختيار موضوع الاستفسار'); return null; }
+        if (!msg)   { alert('⚠️ يرجى كتابة تفاصيل استفسارك'); return null; }
+ 
+        return { name, topic, msg };
+    }
+ 
+    function sendViaWhatsApp() {
+        const data = buildMessage();
+        if (!data) return;
+        const text = `مرحباً أستاذ مؤيد 👋\n\nالاسم: ${data.name}\nالموضوع: ${data.topic}\n\n${data.msg}`;
+        window.open('https://wa.me/972522057002?text=' + encodeURIComponent(text), '_blank');
+    }
+ 
+    function sendViaEmail() {
+        const data = buildMessage();
+        if (!data) return;
+        const subject = `استفسار تقني: ${data.topic}`;
+        const body = `مرحباً أستاذ مؤيد،\n\nالاسم: ${data.name}\nالموضوع: ${data.topic}\n\n${data.msg}\n\nمع التحية`;
+        window.open(`mailto:moayadbaydoun@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+    }
+ 
+    // ======= SCROLL TO TOP =======
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ======= PROGRESS BAR =======
+    window.addEventListener('scroll', () => {
+        const scrolled = document.documentElement.scrollTop;
+        const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const pct = maxScroll > 0 ? scrolled / maxScroll : 0;
+        document.getElementById('progressBar').style.transform = `scaleX(${pct})`;
+        document.getElementById('progressBar').style.transformOrigin = 'left center';
+    });
+
+    // ======= SCROLL REVEAL (Intersection Observer) =======
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 60);
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ======= RIPPLE ON BUTTONS =======
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.btn');
+        if (!btn) return;
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 2;
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px`;
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+    });
+
+    // ======= KEYBOARD SHORTCUT: "/" or Ctrl+K for search =======
+    document.addEventListener('keydown', (e) => {
+        const searchInput = document.getElementById('searchInput');
+        if (!searchInput) return;
+        if ((e.key === '/' || (e.ctrlKey && e.key === 'k')) && document.activeElement !== searchInput) {
+            e.preventDefault();
+            searchInput.focus();
+            searchInput.select();
+            document.getElementById('searchKbd').style.display = 'none';
+        }
+        if (e.key === 'Escape' && document.activeElement === searchInput) {
+            clearSearch();
+            searchInput.blur();
+        }
+    });
+    const si = document.getElementById('searchInput');
+    if (si) {
+        si.addEventListener('focus', () => { const k = document.getElementById('searchKbd'); if (k) k.style.display = 'none'; });
+        si.addEventListener('blur', () => {
+            if (!si.value) { const k = document.getElementById('searchKbd'); if (k) k.style.display = ''; }
+        });
+    }
+
+    // ======= ANIMATED COUNTER =======
+    function animateCounter(el, target, duration = 1000) {
+        let start = 0;
+        const step = target / (duration / 16);
+        const timer = setInterval(() => {
+            start += step;
+            if (start >= target) { start = target; clearInterval(timer); }
+            el.textContent = Math.floor(start);
+        }, 16);
+    }
+
+    // ======= COUNT LINKS IN PAGE =======
+    function countPageLinks() {
+        const rows = document.querySelectorAll('tr[data-search]');
+        return rows.length;
+    }
+ 
+    // ======= INIT =======
+    document.addEventListener('DOMContentLoaded', () => {
+        // Theme
+        const savedTheme = localStorage.getItem('amjad_theme');
+        if (savedTheme) document.body.setAttribute('data-theme', savedTheme);
+ 
+        // Visit counter with animation
+        let visits = parseInt(localStorage.getItem('amjad_visits') || '0') + 1;
+        localStorage.setItem('amjad_visits', visits);
+        const vcEl = document.getElementById('visit-counter');
+        if (vcEl) animateCounter(vcEl, visits, 800);
+
+        // Header stats animation
+        setTimeout(() => {
+            const linksEl = document.getElementById('stat-links');
+            if (linksEl) animateCounter(linksEl, countPageLinks(), 1000);
+        }, 600);
+ 
+        // Check saved name
+        const savedName = localStorage.getItem(STORAGE_KEY);
+        if (savedName) {
+            showWelcomeBanner(savedName);
+            const overlay = document.getElementById('welcomeOverlay');
+            if (overlay) overlay.remove();
+            const inqName = document.getElementById('inqName');
+            if (inqName && !inqName.value) inqName.value = savedName;
+        }
+ 
+        // FAQ
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                const parent = q.parentElement;
+                document.querySelectorAll('.faq-item').forEach(i => { if (i !== parent) i.classList.remove('active'); });
+                parent.classList.toggle('active');
+            });
+        });
+    });
+</script>
+</body>
+</html>
